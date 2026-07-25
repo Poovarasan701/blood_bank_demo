@@ -37,8 +37,8 @@ LifeFlow is a real-time blood bank platform that connects donors, hospitals, and
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
+git clone https://github.com/Poovarasan701/blood_bank_demo.git
+cd blood_bank_demo
 ```
 
 ### 2. Create a Firebase project
