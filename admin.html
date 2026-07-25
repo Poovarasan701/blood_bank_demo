@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LifeFlow Admin - Hospital portal for blood stock inventory control, donor registry database, and emergency requests coordination.">
+  <title>LifeFlow | Hospital Admin Command Center</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Secure Login Overlay Gate -->
+  <div class="login-overlay" id="login-gate">
+    <div class="glass-panel login-card">
+      <div class="logo login-logo">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5C22 12.27 18.6 15.36 13.45 20.03L12 21.35Z" fill="#f43f5e"/>
+          <path d="M12 7C11 8.5 9.5 10.5 9.5 12C9.5 13.38 10.62 14.5 12 14.5C13.38 14.5 14.5 13.38 14.5 12C14.5 10.5 13 8.5 12 7Z" fill="#ffffff"/>
+        </svg>
+        <span>LifeFlow Admin</span>
+      </div>
+      <h3>Hospital Portal Access</h3>
+      <p>Enter the security key to access the central inventory database and donor registry network.</p>
+      
+      <form id="login-form">
+        <div class="form-group" style="margin-bottom: 8px;">
+          <label for="admin-passcode" style="text-align: left;">Security Key / Passcode</label>
+          <input type="password" id="admin-passcode" required placeholder="Default Demo key: 1234" style="text-align: center; letter-spacing: 0.25em;">
+        </div>
+        <button type="submit" class="btn-primary" style="justify-content: center; width: 100%;">Authenticate Session</button>
+        <button type="button" id="demo-bypass-btn" class="btn-secondary" style="justify-content: center; width: 100%; border: none; font-size: 0.85rem; color: var(--accent-red); padding: 4px;">Or bypass using Demo Mode</button>
+      </form>
+    </div>
+  </div>
+  <!-- Sticky Glass Header -->
+  <header id="site-header">
+    <div class="container">
+      <a href="#" class="logo">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5C22 12.27 18.6 15.36 13.45 20.03L12 21.35Z" fill="#f43f5e"/>
+          <path d="M12 7C11 8.5 9.5 10.5 9.5 12C9.5 13.38 10.62 14.5 12 14.5C13.38 14.5 14.5 13.38 14.5 12C14.5 10.5 13 8.5 12 7Z" fill="#ffffff"/>
+        </svg>
+        <span>LifeFlow Admin</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#admin-metrics">Overview</a></li>
+          <li><a href="#admin-inventory-section">Manage Stock</a></li>
+          <li><a href="#admin-requests-section">Urgent Broadcasts</a></li>
+          <li><a href="#admin-donors-section">Volunteers Registry</a></li>
+          <li><a href="index.html" class="btn-secondary" style="padding: 6px 14px; font-size: 0.8rem;">Public Portal</a></li>
+          <li><a href="#" id="admin-logout" class="btn-primary" style="padding: 6px 14px; font-size: 0.8rem; background: linear-gradient(135deg, #475569 0%, #1e293b 100%); box-shadow: none;">Log Out</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-menu-btn" aria-label="Toggle Navigation">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+  <!-- Admin Central Panel -->
+  <main class="admin-dashboard">
+    <div class="container">
+      
+      <!-- Welcome Header -->
+      <div style="margin-bottom: 40px;">
+        <h1 style="font-size: 2.25rem;">Command <span class="text-gradient">Center Dashboard</span></h1>
+        <p style="color: var(--text-secondary);">Centralized database controls for blood inventory units, volunteer listings, and emergency broadcasts.</p>
+      </div>
+      <!-- Quick Metrics Ribbon -->
+      <section class="metrics-grid" id="admin-metrics" style="padding: 0; border: none;">
+        <!-- Total Blood Bags Card -->
+        <div class="glass-panel metric-card">
+          <div class="metric-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          </div>
+          <div class="metric-info">
+            <h3 id="metric-total-units">0</h3>
+            <p>Total Units Stocked</p>
+          </div>
+        </div>
+        <!-- Low Stock Alerts Card -->
+        <div class="glass-panel metric-card">
+          <div class="metric-icon" style="color: var(--accent-red); background: rgba(244, 63, 94, 0.12);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          </div>
+          <div class="metric-info">
+            <h3 id="metric-critical-types" style="color: var(--accent-red);">0</h3>
+            <p>Critical Blood Types</p>
+          </div>
+        </div>
+        <!-- Open Requests Card -->
+        <div class="glass-panel metric-card">
+          <div class="metric-icon amber">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <div class="metric-info">
+            <h3 id="metric-pending-requests" style="color: var(--accent-amber);">0</h3>
+            <p>Active Broadcasts</p>
+          </div>
+        </div>
+        <!-- Total Registered Donors Card -->
+        <div class="glass-panel metric-card">
+          <div class="metric-icon green">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <div class="metric-info">
+            <h3 id="metric-total-donors" style="color: var(--accent-green);">0</h3>
+            <p>Registered Donors</p>
+          </div>
+        </div>
+      </section>
+      <!-- Analytics Graph Display -->
+      <section class="glass-panel chart-container-panel" style="border-top: 1px solid var(--glass-border); padding: 30px; margin-bottom: 40px;">
+        <h3 style="margin-bottom: 24px; font-size: 1.25rem;">Inventory Stock Level Distribution</h3>
+        <div class="stock-chart" id="stock-distribution-chart">
+          <!-- Rendered dynamically by admin.js -->
+        </div>
+      </section>
+      <!-- Split section layout for Stock and Logging -->
+      <div class="admin-split-layout" id="admin-inventory-section">
+        
+        <!-- Left Column: Manage Stock Grid -->
+        <div class="admin-split-layout-left">
+          <div class="glass-panel" style="padding: 30px;">
+            <h3 style="margin-bottom: 8px;">Inventory Control Grid</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 24px;">Adjust unit counts manually. Low stock flags trigger warnings automatically on the donor portal.</p>
+            
+            <div class="inventory-grid-admin" id="admin-inventory-grid">
+              <!-- Rendered dynamically by admin.js -->
+            </div>
+          </div>
+        </div>
+        <!-- Right Column: Log Donation / Update Batch -->
+        <aside>
+          <div class="glass-panel form-wrapper" style="padding: 30px; height: fit-content; position: sticky; top: 100px;">
+            <h3 style="margin-bottom: 8px; font-size: 1.4rem;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              Log Donation Session
+            </h3>
+            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 24px;">Record a completed donation. This adds +1 unit to inventory stock and refreshes the volunteer's donation interval.</p>
+            
+            <form class="app-form" id="log-donation-form" style="grid-template-columns: 1fr;">
+              <div class="form-group">
+                <label for="log-donor-select">Select Registered Donor</label>
+                <select id="log-donor-select" required>
+                  <option value="">Choose volunteer...</option>
+                  <!-- Rendered dynamically by admin.js -->
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="log-blood-display">Blood Group</label>
+                <input type="text" id="log-blood-display" readonly placeholder="Select donor to fetch group" style="background: rgba(255,255,255,0.01); color: var(--text-secondary); border-color: transparent;">
+              </div>
+              <div class="form-group">
+                <label for="log-units">Units Received</label>
+                <input type="number" id="log-units" min="1" max="5" value="1" required>
+              </div>
+              <div class="form-group">
+                <label for="log-hospital">Receiving Center</label>
+                <input type="text" id="log-hospital" value="Central Blood Bank Headquarter" required>
+              </div>
+              <div style="margin-top: 10px;">
+                <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">Record Donation & Stock</button>
+              </div>
+            </form>
+          </div>
+        </aside>
+      </div>
+      <!-- Urgent Requests Management Grid -->
+      <section class="glass-panel" id="admin-requests-section" style="padding: 30px; margin-bottom: 40px;">
+        <div class="section-header-admin">
+          <div>
+            <h3>Urgent Broadcast Managers</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 4px;">Emergency hospital requests broadcasted on the network grid. Click "Resolve" when units are secured.</p>
+          </div>
+        </div>
+        
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Patient</th>
+                <th>Blood Group</th>
+                <th>Units Needed</th>
+                <th>Urgency</th>
+                <th>Receiving Hospital</th>
+                <th>Contact</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-requests-table-body">
+              <!-- Rendered dynamically by admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <!-- Volunteer Directory Database Table -->
+      <section class="glass-panel" id="admin-donors-section" style="padding: 30px; margin-bottom: 40px;">
+        <div class="section-header-admin">
+          <div>
+            <h3>Volunteer Donors Database</h3>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 4px;">Complete list of verified volunteers. Search or trigger donation logging.</p>
+          </div>
+          <div class="search-field-inline">
+            <input type="text" id="admin-search-donor" placeholder="Search by name, type, location..." style="width: 100%;">
+          </div>
+        </div>
+        
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Donor Name</th>
+                <th>Blood Group</th>
+                <th>Location</th>
+                <th>Age</th>
+                <th>Contact Phone</th>
+                <th>Donation Eligibility</th>
+                <th style="text-align: right;">Registry Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-donors-table-body">
+              <!-- Rendered dynamically by admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col" style="grid-column: span 2;">
+          <a href="#" class="logo" style="margin-bottom: 16px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 21.35L10.55 20.03C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5C22 12.27 18.6 15.36 13.45 20.03L12 21.35Z" fill="#f43f5e"/>
+            </svg>
+            <span>LifeFlow Admin</span>
+          </a>
+          <p>Empowering healthcare ecosystems through frictionless real-time connectivity between volunteers and individuals requiring urgent assistance.</p>
+          <p>Compliance: Certified FDA & AABB Grid Security Protocols.<br>Administrator Contact: tech-support@lifeflow.org</p>
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#admin-metrics">Overview</a></li>
+            <li><a href="#admin-inventory-section">Inventory Control</a></li>
+            <li><a href="#admin-requests-section">Manage Broadcasts</a></li>
+            <li><a href="#admin-donors-section">Donor Registry</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Security</h4>
+          <ul>
+            <li><a href="#">Audit Logs</a></li>
+            <li><a href="#">Access Control</a></li>
+            <li><a href="#">Privacy Standards</a></li>
+            <li><a href="#">HIPAA Compliance</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 LifeFlow Organization. All rights reserved. Hospital Portal Console v2.4.</p>
+      </div>
+    </div>
+  </footer>
+  <!-- Floating Toast Notification Widget -->
+  <div class="toast-notification" id="toast">
+    <svg id="toast-icon-success" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    <svg id="toast-icon-error" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f43f5e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+    <span id="toast-message">Event successfully registered!</span>
+  </div>
+  <script type="module" src="admin.js"></script>
+</body>
+</html>
