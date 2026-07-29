@@ -1,6 +1,11 @@
 # LifeFlow — Blood Bank & Donor Network
 
 LifeFlow is a real-time blood bank platform that connects donors, hospitals, and administrators. It provides a public-facing donor registry and emergency request board, plus an admin dashboard for managing blood inventory, donors, and urgent requests — all backed by a live Firebase Firestore database.
+
+## publishing
+published by — netlify 
+web sites : blood-bank-connect-1.netlify.app
+
 ## Features
 
 - 🩸 **Live inventory tracker** — blood stock levels by type, updated in real time
