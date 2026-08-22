@@ -5,7 +5,7 @@ LifeFlow is a real-time blood bank platform that connects donors, hospitals, and
 ## publishing
 published by — netlify 
 
-web sites : lifeflow-01.netlify.app
+web sites : (https://lifeflow-01.netlify.app/)
 
 ## Features
 
